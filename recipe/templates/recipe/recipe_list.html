@@ -1,20 +1,20 @@
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Рецепты</title>
-    <link rel="stylesheet" href="{% static "recipe/css/style.css" %}">
-</head>
-<body>
+ {% extends 'base.html' %}
+
+ {% block content %}
+     <form action=".">
+         <input type="text" name="query" value="{{ query|default:'' }}">
+         <input type="submit" value="Поиск">
+     </form>
     <h1>Все рецепты</h1>
 
     {% for recipe in recipe_list %}
         <h3>{{ recipe.title }}</h3>
-        <p>{{ recipe.text }}</p>
+        <p>
+            {{ recipe.text|truncatewords:30 }}
+{#            <a href="recipe/{{ recipe.id }}">Смотреть</a>#}
+            <a href="{% url 'recipe_detail' recipe.id %}">Смотреть</a>
+        </p>
         <p>{{ recipe.create_date }}&nbsp;{{ recipe.author }}</p>
 
     {% endfor %}
-
-</body>
-</html>
+ {% endblock content %}

@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from recipe.views import recipe_list
+from recipe.views import recipe_list, recipe_detail
 
 urlpatterns = [
     url(r'^$', recipe_list, name='recipe_list'),
+    url(r'^recipe/(?P<id>\d+)/$', recipe_detail, name='recipe_detail'),
     url(r'^admin/', admin.site.urls),
 ]

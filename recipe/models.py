@@ -11,6 +11,7 @@ class Recipe(models.Model):
 
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
+        # ordering = ['-create_date']
 
     def __str__(self):
 

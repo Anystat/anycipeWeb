@@ -30,6 +30,7 @@ models.py => add class Meta for Post # не всегда срабатывает 
     class Meta:
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
+        ordering = ['-create_date']
     def __str(self):
         return '{} {}'.format(self.title, self.create_date)
 
@@ -54,8 +55,8 @@ views.py => add view function
 from django.shortcuts import render_to_response
 from .models import Recipe
 def recipe_list(request):
-    recipe_list = Recipe.objects.all()
-    return render_to_response('recipe/recipe_list.html', {'recipe_list': recipe_list})
+    recipe_list = Recipe.objects.all().order_by('-create_date')
+    return render_to_response('recipe/recipe_list.html', {'recipe_list': recipe_list, 'query': query})
 
 create dir templates/recipe in app
 add recipe_list.html
@@ -96,7 +97,85 @@ recipe_list.html => add style
 {% load static %}
 <link rel="stylesheet" href="{% static "recipe/css/style.css" %}">
 
-159
+recipe_list.html => change text view # добавление обрезки длинного рецепта в выдаче
+        <p>{{ recipe.text|truncatewords:30 }}</p>
+
+add link for recipe
+urls.py =>
+    url(r'^recipe/(?P<id>\d+)/$', recipe_detail, name='recipe_detail'),
+
+views.py =>
+def recipe_detail(request, id):
+    recipe = Recipe.objects.get(id=id)
+    return render_to_response('recipe/recipe_detail.html', {'recipe_detail': recipe})
+
+recipe_detail.html =>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <a href="/">На главную</a>
+    <h1>{{ recipe_detail.title }}</h1>
+    {{ recipe_detail.text|linebreaks }}
+    <p>{{ recipe_detail.create_date }}&nbsp;{{ recipe_detail.author }}</p>
+</body>
+</html>
+
+recipe_list =>
+<a href="recipe/{{ recipe.id }}">Смотреть</a>
+
+add base temlate in dit project_dir/templates
+
+base.html =>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Рецепты</title>
+    <link rel="stylesheet" href="{% static "recipe/css/style.css" %}">
+</head>
+<body>
+
+    {% block content %}
+    {% endblock content %}
+
+</body>
+</html>
+
+add project_dir/templates in settings.py
+
+settings.py => add
+TEMPLATES = [
+    {
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
+rm base html and add block content in templates
+ {% extends 'base.html' %}
+ {% block content %}
+ # html
+ {% endblock content %}
+
+ add search
+ recipe_list.html => add form
+      <form action=".">
+         <input type="text" name="query" value="{{ query|default:'' }}">
+         <input type="submit" value="Поиск">
+     </form>
+vievs.py => add get
+query = request.GET.get('query')
+    if query:
+        recipe_list = recipe_list.filter(text__icontains=query)
+
+recipe_list.html =>
+<input type="text" name="query" value="{{ query|default:'' }}">
+views.py =>
+return render_to_response('recipe/recipe_list.html', {'recipe_list': recipe_list, 'query': query})
+
+
 
 
 

@@ -1,0 +1,8 @@
+ {% extends 'base.html' %}
+
+ {% block content %}
+     <a href="/">На главную</a>
+     <h1>{{ recipe_detail.title }}</h1>
+     {{ recipe_detail.text|linebreaks }}
+     <p>{{ recipe_detail.create_date }}&nbsp;{{ recipe_detail.author }}</p>
+ {% endblock content %}
