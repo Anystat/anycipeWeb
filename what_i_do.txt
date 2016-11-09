@@ -47,7 +47,7 @@ http://stackoverflow.com/questions/38744285/django-urls-error-view-must-be-a-cal
 
 from recipe.views import recipe_list
 urlpatterns = [
-    url(r'^', recipe_list, name='recipe_list'),
+    url(r'^$', recipe_list, name='recipe_list'),
 
 views.py => add view function
 
@@ -57,7 +57,7 @@ def recipe_list(request):
     recipe_list = Recipe.objects.all()
     return render_to_response('recipe/recipe_list.html', {'recipe_list': recipe_list})
 
-create dir recipe in dir templates in app
+create dir templates/recipe in app
 add recipe_list.html
 
 recipe_list.html => add template
@@ -73,11 +73,31 @@ recipe_list.html => add template
     {% for recipe in recipe_list %}
         <h3>{{ recipe.title }}</h3>
         <p>{{ recipe.text }}</p>
-        <p>{{ recipe.create_date }}$bnsp;{{ recipe.author }}</p>
+        <p>{{ recipe.create_date }}&nbsp;{{ recipe.author }}</p>
 
     {% endfor %}
 </body>
 </html>
+
+settings.py => add static dir
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+create dir static/nameapp/css in project
+create style.css
+
+style.css => add style
+h1{
+    color: green;
+}
+
+recipe_list.html => add style
+{% load static %}
+<link rel="stylesheet" href="{% static "recipe/css/style.css" %}">
+
+159
+
 
 
 

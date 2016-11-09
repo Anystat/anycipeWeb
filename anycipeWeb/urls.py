@@ -18,6 +18,6 @@ from django.contrib import admin
 from recipe.views import recipe_list
 
 urlpatterns = [
-    url(r'^', recipe_list, name='recipe_list'),
+    url(r'^$', recipe_list, name='recipe_list'),
     url(r'^admin/', admin.site.urls),
 ]
