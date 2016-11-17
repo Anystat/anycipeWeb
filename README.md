@@ -39,11 +39,11 @@ http://127.1.1.0:8000/
 Download and install Python3.5.2 from https://www.python.org/downloads/
 ```
 #!bash
-sudo pip install -r requirements.txt
+sudo pip3 install -r requirements.txt
 python3 manage.py runserver
 
 ```
 http://127.1.1.0:8000/
 
-### На данный момент не готова нулевая версия: ###
-кто проживает на дне океана?
+### ver 0.1 ###
+вывожу фэйковые данные

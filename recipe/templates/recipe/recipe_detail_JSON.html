@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="/">На главную</a>
+<h2>JSON</h2>
+<h1>{{ recipe.receipt }}</h1>
+    <h3>Пищевая ценность:</h3>
+    <ul>
+        <li>Жиры {{ recipe.energy.fat }}</li>
+{#        <li>calorific value {{ energy.calorific value }}</li>#}
+        <li>protein {{ recipe.energy.protein }}</li>
+        <li>carbohydrates {{ recipe.energy.carbohydrates }}</li>
+    </ul>
+{% for ingridient in recipe.ingredients %}
+    <p>{{ ingridient.name }}</p>
+    <p>Необходимо {{ ingridient.amount }} {{ ingridient.unit }}</p>
+    <hr>
+{% endfor %}
+    <p>Рецепт:</p>
+    {{ recipe.description|linebreaks }}
+{% endblock content %}
