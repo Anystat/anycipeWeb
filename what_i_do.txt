@@ -177,6 +177,10 @@ return render_to_response('recipe/recipe_list.html', {'recipe_list': recipe_list
 
 
 
+Добавил модуль requests для отправки html и получения json
+Поменял структуру urls
+Добавил фэйковый запрос JSON и посмотрел как его парсить
+
 
 
 
