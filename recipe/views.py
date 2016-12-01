@@ -1,63 +1,37 @@
 from django.shortcuts import render_to_response
-from .models import Recipe
 
 import requests
-# JSON = open('receipts.json', 'r')
-JSON = {
-  "receipt": "борщ",
-  "ingredients": [
-    {
-      "name": "томат",
-      "amount": 100,
-      "unit": "грамм"
-    },
-    {
-      "name": "чеснок",
-      "amount": "",
-      "unit": ""
-    }
-  ],
-  "persons": 2,
-  "energy": {
-    "calorific value": 250,
-    "protein": 10,
-    "fat": 5,
-    "carbohydrates": 10
-  },
-  "description": "Hello World",
-  "image": {
-    "_id": "",
-    "chunkSize": "",
-    "uploadDate": "",
-    "length": "",
-    "md5": "",
-    "filename": ""
-  }
-}
 
-SITE_ROOT = ''
+SITE_ROOT = 'http://85.143.221.95:8080'
 
 
 def recipe_list(request):
-
+    r = Request()
     args = {}
-    args['recipe_list'] = Recipe.objects.all().order_by('-create_date')
-    args['query'] = request.GET.get('query')
+    args['recipe_list'] = r.get_recipe_list()
+    # args['query'] = request.GET.get('query')
 
-    if args['query']:
-        args['recipe_list'] = args['recipe_list'].filter(text__icontains=args['query'])
-    print(args)
+    # if args['query']:
+    #     args['recipe_list'] = args['recipe_list'].filter(text__icontains=args['query'])
     return render_to_response('recipe/recipe_list.html', args)
 
 
-def recipe_detail(request, id):
+def recipe_detail(request, name):
+    r = Request()
     args = {}
-    # args['recipe'] = Recipe.objects.get(id=id)
-    args['recipe'] = JSON
+    args['recipe'] = r.get_recipe(name)
+    return render_to_response('recipe/recipe_detail.html', args)
 
-    # return render_to_response('recipe/recipe_detail.html', args)
-    return render_to_response('recipe/recipe_detail_JSON.html', args)
-    # return JsonResponse(JSON, safe=False)
+
+def ingridients_list(request):
+    r = Request()
+    args = {}
+    args['ingridients_list'] = r.get_ingridients_list()
+    # args['query'] = request.GET.get('query')
+
+    # if args['query']:
+    #     args['ingridients_list'] = args['ingridients_list'].filter(text__icontains=args['query'])
+    return render_to_response('recipe/ingridients_list.html', args)
 
 
 class Request:
@@ -66,11 +40,25 @@ class Request:
     def __init__(self):
         self.root = SITE_ROOT
 
-    def get_products_list(self):
+    def get_ingridients_list(self):
         # Список продуктов
-        request = '/sites'
+        request = '/ingredients'
         url = self.root + request
         response = requests.get(url)
 
-        # return response.json()
-        return JSON
+        return response.json()
+
+    def get_recipe_list(self):
+        # Список блюд
+        request = '/receipts'
+        url = self.root + request
+        response = requests.get(url)
+
+        return response.json()
+
+    def get_recipe(self, name):
+        request = '/receipts/' + name
+        url = self.root + request
+        response = requests.get(url)
+
+        return response.json()[0]

@@ -1,0 +1,43 @@
+[
+  {
+    'energy': {
+      'protein': 10,
+      'fat': 5,
+      'carbohydrates': 10,
+      'calorific value': 250
+    },
+    'description': 'Hello World',
+    'receipt': 'борщ',
+    'url': 'http://someurl.com/receipt1',
+    '_id': {
+      'counter': 14178599,
+      'date': 1479668313000,
+      'timeSecond': 1479668313,
+      'timestamp': 1479668313,
+      'processIdentifier': 20358,
+      'machineIdentifier': 4696871,
+      'time': 1479668313000
+    },
+    'ingredients': [
+      {
+        'name': 'томат',
+        'amount': 100,
+        'unit': 'грамм'
+      },
+      {
+        'name': 'чеснок',
+        'amount': '',
+        'unit': ''
+      }
+    ],
+    'persons': 2,
+    'image': {
+      'chunkSize': '',
+      'length': '',
+      'filename': '',
+      '_id': '',
+      'uploadDate': '',
+      'md5': ''
+    }
+  }
+]

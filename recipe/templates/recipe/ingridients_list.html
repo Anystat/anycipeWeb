@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="{% url 'recipe:recipe_list' %}">Рецепты</a> <a href="{% url 'recipe:ingridients_list' %}">Ингридиенты</a>
+    <form action=".">
+        <input type="text" name="query" value="{{ query|default:'' }}">
+        <input type="submit" value="Поиск">
+    </form>
+    {% for ingr in ingridients_list %}
+        <p>
+            {{ ingr.ingredient }}
+            {{ ingr.category }}
+            {{ ingr.description|truncatewords:30 }}
+        </p>
+    {% endfor %}
+{% endblock content %}
