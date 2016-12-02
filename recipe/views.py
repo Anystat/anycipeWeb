@@ -1,5 +1,5 @@
-from django.shortcuts import render_to_response
-
+from django.shortcuts import render_to_response, render
+from django.template.context_processors import csrf
 import requests
 import re
 
@@ -29,6 +29,13 @@ def ingridients_list(request):
     args = {}
     args['ingridients_list'] = r.get_ingridients_list()
     args['query'] = request.GET.get('query')
+    args['checks'] = request.POST.getlist('checks')
+
+    args.update(csrf(request))
+    if request.method == 'POST':
+        args['recipe_list'] = r.get_recipe_with_check(args['checks'])
+        return render_to_response('recipe/recipe_list.html', args)
+
 
     if args['query']:
         args['recipe_list'] = r.get_recipe_with_ingr(args['query'])
@@ -79,8 +86,23 @@ class Request:
 
         return response.json()[0]
 
+    def get_ingr_name_from_id(self, id):
+        return self.get_ingridients_list()[id].get('ingredient')
+
+
+    def get_recipe_with_check(self, checks):
+        ingr = ''
+        for i in range(len(checks)):
+            ingr = ingr + self.get_ingr_name_from_id(i) + ','
+        request = '/receipts/find?ingredient[]=' + ingr[:-1]
+        print(request)
+        url = self.root + request
+        response = requests.get(url)
+
+        return response.json()
 
     def get_recipe_with_ingr(self, query):
+        print(query)
         query = re.compile(r"\w+").findall(query)
         ingr = ''
         for q in query:
