@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^$', recipe_list, name='recipe_list'),
     url(r'^recipe/(?P<name>.+)/$', recipe_detail, name='recipe_detail'),
     url(r'^ingridients/$', ingridients_list, name='ingridients_list'),
+    url(r'^ingridients/(?P<name>.+)/$', ingridients_detail, name='ingridients_detail'),
 ]

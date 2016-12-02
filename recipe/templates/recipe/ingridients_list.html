@@ -6,11 +6,14 @@
         <input type="text" name="query" value="{{ query|default:'' }}">
         <input type="submit" value="Поиск">
     </form>
-    {% for ingr in ingridients_list %}
-        <p>
-            {{ ingr.ingredient }}
-            {{ ingr.category }}
-            {{ ingr.description|truncatewords:30 }}
-        </p>
-    {% endfor %}
+    <form method="post" action=".">
+        {% for ingr in ingridients_list %}
+            <p>
+                <input type="checkbox">
+                {{ ingr.ingredient }}
+                {{ ingr.category }}
+            </p>
+        {% endfor %}
+        <input type="submit" value="Поиск">
+    </form>
 {% endblock content %}
