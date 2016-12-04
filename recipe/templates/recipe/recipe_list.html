@@ -1,7 +1,6 @@
  {% extends 'base.html' %}
 
  {% block content %}
-     <a href="{% url 'recipe:recipe_list' %}">Рецепты</a> <a href="{% url 'recipe:ingridients_list' %}">Ингридиенты</a>
      <form action=".">
          <input type="text" id="query" name="query" value="{{ query|default:'' }}">
          <input type="submit" value="Поиск">

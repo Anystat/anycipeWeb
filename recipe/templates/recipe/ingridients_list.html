@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <a href="{% url 'recipe:recipe_list' %}">Рецепты</a> <a href="{% url 'recipe:ingridients_list' %}">Ингридиенты</a>
     <form action=".">
-        <input type="text" name="query" value="{{ query|default:'' }}">
-        <input type="submit" value="Поиск">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Поиск</button>
+                    </span>
+                        <input type="text" class="form-control" name="query" value="{{ query|default:'' }}"
+                           placeholder="Search for...">
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
     </form>
+
     <form method="post" action=".">
-    {% csrf_token %}
+        {% csrf_token %}
         {% for ingr in ingridients_list %}
             <p>
                 <input type="checkbox" name="checks" value="{{ forloop.counter }}">

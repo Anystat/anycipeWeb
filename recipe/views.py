@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, render
 from django.template.context_processors import csrf
+from django.core.urlresolvers import resolve, Resolver404
 import requests
 import re
 
@@ -48,6 +49,17 @@ def ingridients_detail(request, name):
     args = {}
     args['ingridient'] = r.get_inrg(name)
     return render_to_response('recipe/ingridients_detail.html', args)
+
+
+# @register.simple_tag
+def active_page(request, view_name):
+
+    if not request:
+        return ""
+    try:
+        return "active" if resolve(request.path_info).url_name == view_name else ""
+    except Resolver404:
+        return ""
 
 
 class Request:
