@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="input-group">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Поиск</button>
-                    </span>
-                        <input type="text" class="form-control" name="query" value="{{ query|default:'' }}"
+<span class="input-group-btn">
+<button class="btn btn-default" type="submit">Поиск</button>
+</span>
+                    <input type="text" class="form-control" name="query" value="{{ query|default:'' }}"
                            placeholder="Search for...">
                 </div><!-- /input-group -->
             </div><!-- /.col-lg-6 -->
@@ -18,12 +18,20 @@
     <form method="post" action=".">
         {% csrf_token %}
         {% for ingr in ingridients_list %}
-            <p>
-                <input type="checkbox" name="checks" value="{{ forloop.counter }}">
-                {{ ingr.ingredient }}
-                {{ ingr.category }}
-            </p>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+<span class="input-group-addon">
+<input type="checkbox" name="checks" value="{{ forloop.counter }}">
+</span>
+                        <input type="text" class="form-control" value="{{ ingr.ingredient }} {{ ingr.category }}">
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
         {% endfor %}
         <input type="submit" value="Поиск">
     </form>
+
+
+
 {% endblock content %}
