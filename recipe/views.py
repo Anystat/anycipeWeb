@@ -105,7 +105,7 @@ class Request:
     def get_recipe_with_check(self, checks):
         ingr = ''
         for i in range(len(checks)):
-            ingr = ingr + self.get_ingr_name_from_id(i) + ','
+            ingr = ingr + self.get_ingr_name_from_id(int(checks[i])-1) + ','
         request = '/receipts/find?ingredient[]=' + ingr[:-1]
         print(request)
         url = self.root + request

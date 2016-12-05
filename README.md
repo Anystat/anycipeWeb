@@ -6,6 +6,7 @@ for update
 sudo pip3 install --upgrade pip
 
 ```
+Bootstrap 3.3.7
 
 # WebApp Python-Django #
 

@@ -1,10 +1,19 @@
  {% extends 'base.html' %}
 
  {% block content %}
-     <form action=".">
-         <input type="text" id="query" name="query" value="{{ query|default:'' }}">
-         <input type="submit" value="Поиск">
-     </form>
+    <form action=".">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Поиск</button>
+                    </span>
+                    <input type="text" class="form-control" name="query" value="{{ query|default:'' }}"
+                           placeholder="Search for...">
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+    </form>
     {% for recipe in recipe_list %}
         <h3><a href="{% url 'recipe:recipe_detail' recipe.receipt %}">{{ recipe.receipt }}</a></h3>
         <p>

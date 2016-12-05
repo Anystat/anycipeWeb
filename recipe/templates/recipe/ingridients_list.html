@@ -5,9 +5,9 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="input-group">
-<span class="input-group-btn">
-<button class="btn btn-default" type="submit">Поиск</button>
-</span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Поиск</button>
+                    </span>
                     <input type="text" class="form-control" name="query" value="{{ query|default:'' }}"
                            placeholder="Search for...">
                 </div><!-- /input-group -->
@@ -15,23 +15,25 @@
         </div><!-- /.row -->
     </form>
 
-    <form method="post" action=".">
-        {% csrf_token %}
-        {% for ingr in ingridients_list %}
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="input-group">
-<span class="input-group-addon">
-<input type="checkbox" name="checks" value="{{ forloop.counter }}">
-</span>
-                        <input type="text" class="form-control" value="{{ ingr.ingredient }} {{ ingr.category }}">
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
-            </div><!-- /.row -->
-        {% endfor %}
-        <input type="submit" value="Поиск">
-    </form>
+    <div class="row">
+        <form method="post" action=".">
+            {% csrf_token %}
+            {% for ingr in ingridients_list %}
 
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" name="checks" value="{{ forloop.counter }}">
+                            </span>
+                            <input type="text" class="form-control" value="{{ ingr.ingredient }} {{ ingr.category }}">
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+            {% endfor %}
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Поиск</button>
+            </span>
+        </form>
+    </div><!-- /.row -->
 
 
 {% endblock content %}
