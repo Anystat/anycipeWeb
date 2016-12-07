@@ -19,14 +19,16 @@ def recipe_list(request):
 
     if args['query']:
         args['recipe_list'] = r.get_recipe_with_ingr(args['query'])
-    return render_to_response('recipe/recipe_list.html', args)
+
+    return render(request, 'recipe/recipe_list.html', args)
 
 
 def recipe_detail(request, name):
     r = Request()
     args = {}
     args['recipe'] = r.get_recipe(name)
-    return render_to_response('recipe/recipe_detail.html', args)
+
+    return render(request, 'recipe/recipe_detail.html', args)
 
 
 def ingridients_list(request):
@@ -39,31 +41,23 @@ def ingridients_list(request):
     args.update(csrf(request))
     if request.method == 'POST':
         args['recipe_list'] = r.get_recipe_with_check(args['checks'])
-        return render_to_response('recipe/recipe_list.html', args)
 
+        return render(request, 'recipe/recipe_list.html', args)
 
     if args['query']:
         args['recipe_list'] = r.get_recipe_with_ingr(args['query'])
-        return render_to_response('recipe/recipe_list.html', args)
-    return render_to_response('recipe/ingridients_list.html', args)
+
+        return render(request, 'recipe/recipe_list.html', args)
+
+    return render(request, 'recipe/ingridients_list.html', args)
 
 
 def ingridients_detail(request, name):
     r = Request()
     args = {}
     args['ingridient'] = r.get_inrg(name)
-    return render_to_response('recipe/ingridients_detail.html', args)
 
-
-# @register.simple_tag
-# def active_page(request, view_name):
-#
-#     if not request:
-#         return ""
-#     try:
-#         return "active" if resolve(request.path_info).url_name == view_name else ""
-#     except Resolver404:
-#         return ""
+    return render(request, 'recipe/ingridients_detail.html', args)
 
 
 class Request:
