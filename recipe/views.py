@@ -3,8 +3,12 @@ from django.template.context_processors import csrf
 from django.core.urlresolvers import resolve, Resolver404
 import requests
 import re
+from django import template
 
-SITE_ROOT = 'http://85.143.221.95:8080'
+register = template.Library()
+
+# SITE_ROOT = 'http://85.143.221.95:8080'
+SITE_ROOT = 'http://008080.ha2s4mjugmxdemrrfy4tk.nblz.ru/'
 
 
 def recipe_list(request):
@@ -52,14 +56,14 @@ def ingridients_detail(request, name):
 
 
 # @register.simple_tag
-def active_page(request, view_name):
-
-    if not request:
-        return ""
-    try:
-        return "active" if resolve(request.path_info).url_name == view_name else ""
-    except Resolver404:
-        return ""
+# def active_page(request, view_name):
+#
+#     if not request:
+#         return ""
+#     try:
+#         return "active" if resolve(request.path_info).url_name == view_name else ""
+#     except Resolver404:
+#         return ""
 
 
 class Request:
