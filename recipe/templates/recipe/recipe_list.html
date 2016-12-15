@@ -2,29 +2,31 @@
 {% load staticfiles %}
 
 {% block content %}
-    <form action=".">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group">
-<span class="input-group-btn">
-<button class="btn btn-default" type="submit">Поиск</button>
-</span>
-                    <input type="text" class="form-control" name="query" value="{{ query|default:'' }}"
-                           placeholder="Search for...">
-                </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
-    </form>
-    {% for recipe in recipe_list %}
-        <div class="col-md-1">
-            <h3><img src="{% static "recipe/img/zaglushka.jpg" %}" class="img-thumbnail" alt="{{ recipe.receipt }}">
-        </h3>
-        </div>
-        <div class="col-md-11">
-            <h3><a href="{% url 'recipe:recipe_detail' recipe.receipt %}">{{ recipe.receipt }}</a></h3>
-            <p>
-                {{ recipe.description|truncatewords:30 }}
-            </p>
-        </div>
-    {% endfor %}
+    <div class="row">
+        <form action="." class="col-md-10 col-md-offset-1">
+            <div class="input-group">
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">Поиск</button>
+                </span>
+                <input type="text" class="form-control" name="query" value="{{ query|default:'' }}"
+                       placeholder="Введите ингредиенты...">
+            </div><!-- /input-group -->
+        </form>
+    </div>
+
+    <div class="row">
+        {% for recipe in recipe_list %}
+            <div class="col-md-1 col-md-offset-1">
+                <h3><img src="{% static "recipe/img/zaglushka.jpg" %}" class="img-thumbnail" alt="{{ recipe.receipt }}"></h3>
+            </div>
+            <div class="col-md-9">
+                <h3><a href="{% url 'recipe:recipe_detail' recipe.receipt %}">{{ recipe.receipt }}</a></h3>
+                <p>
+                    {{ recipe.description|truncatewords:30 }}
+                </p>
+            </div>
+            <div class="col-md-1">&nbsp;</div>
+        {% endfor %}
+    </div>
+
 {% endblock content %}
