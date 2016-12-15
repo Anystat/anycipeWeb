@@ -1,20 +1,30 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
 
- {% block content %}
-     <a href="/">На главную</a>
-     <h1>{{ recipe.receipt }}</h1>
-    <h3>Пищевая ценность:</h3>
-    <ul>
-        <li>Жиры {{ recipe.energy.fat }}</li>
-{#        <li>calorific value {{ energy.calorific value }}</li>#}
-        <li>protein {{ recipe.energy.protein }}</li>
-        <li>carbohydrates {{ recipe.energy.carbohydrates }}</li>
-    </ul>
-{% for ingredient in recipe.ingredients %}
-    <p>{{ ingredient.name }}</p>
-    <p>Необходимо {{ ingredient.amount }} {{ ingredient.unit }}</p>
-    <hr>
-{% endfor %}
-    <p>Рецепт:</p>
-    {{ recipe.description|linebreaks }}
- {% endblock content %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+            <h1>{{ recipe.receipt }}</h1>
+            <table class="table table-hover">
+            	<tbody>
+            			{% for ingredient in recipe.ingredients %}
+                            <tr><td>{{ ingredient.name }}</td></tr>
+                        {% endfor %}
+            	</tbody>
+            </table>
+            <p>Рецепт:</p>
+                {{ recipe.description|linebreaks }}
+                {{ recipe.instruction|linebreaks }}
+        </div>
+    </div>
+
+    {#    <h3>Пищевая ценность:</h3>#}
+    {#    <ul>#}
+    {#        <li>Жиры {{ recipe.energy.fat }}</li>#}
+    {#        <li>calorific value {{ energy.calorific_value }}</li>#}
+    {#        <li>protein {{ recipe.energy.protein }}</li>#}
+    {#        <li>carbohydrates {{ recipe.energy.carbohydrates }}</li>#}
+    {#    </ul>#}
+
+
+
+{% endblock content %}
