@@ -76,7 +76,8 @@ class Request:
 
     def get_recipe_list(self):
         # Список блюд
-        request = '/receipts'
+        # request = '/receipts'
+        request = '/receipts/page/1?size=10'
         url = self.root + request
         response = requests.get(url)
 

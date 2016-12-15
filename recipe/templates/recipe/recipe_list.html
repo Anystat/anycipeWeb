@@ -1,13 +1,14 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
+{% load staticfiles %}
 
- {% block content %}
+{% block content %}
     <form action=".">
         <div class="row">
             <div class="col-lg-6">
                 <div class="input-group">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">Поиск</button>
-                    </span>
+<span class="input-group-btn">
+<button class="btn btn-default" type="submit">Поиск</button>
+</span>
                     <input type="text" class="form-control" name="query" value="{{ query|default:'' }}"
                            placeholder="Search for...">
                 </div><!-- /input-group -->
@@ -15,9 +16,15 @@
         </div><!-- /.row -->
     </form>
     {% for recipe in recipe_list %}
-        <h3><a href="{% url 'recipe:recipe_detail' recipe.receipt %}">{{ recipe.receipt }}</a></h3>
-        <p>
-            {{ recipe.description|truncatewords:30 }}
-        </p>
+        <div class="col-md-1">
+            <h3><img src="{% static "recipe/img/zaglushka.jpg" %}" class="img-circle" alt="{{ recipe.receipt }}">
+        </h3>
+        </div>
+        <div class="col-md-11">
+            <h3><a href="{% url 'recipe:recipe_detail' recipe.receipt %}">{{ recipe.receipt }}</a></h3>
+            <p>
+                {{ recipe.description|truncatewords:30 }}
+            </p>
+        </div>
     {% endfor %}
- {% endblock content %}
+{% endblock content %}
