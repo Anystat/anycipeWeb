@@ -10,9 +10,9 @@
         <li>protein {{ recipe.energy.protein }}</li>
         <li>carbohydrates {{ recipe.energy.carbohydrates }}</li>
     </ul>
-{% for ingridient in recipe.ingredients %}
-    <p>{{ ingridient.name }}</p>
-    <p>Необходимо {{ ingridient.amount }} {{ ingridient.unit }}</p>
+{% for ingredient in recipe.ingredients %}
+    <p>{{ ingredient.name }}</p>
+    <p>Необходимо {{ ingredient.amount }} {{ ingredient.unit }}</p>
     <hr>
 {% endfor %}
     <p>Рецепт:</p>

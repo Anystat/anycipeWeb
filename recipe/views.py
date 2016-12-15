@@ -31,10 +31,10 @@ def recipe_detail(request, name):
     return render(request, 'recipe/recipe_detail.html', args)
 
 
-def ingridients_list(request):
+def ingredients_list(request):
     r = Request()
     args = {}
-    args['ingridients_list'] = r.get_ingridients_list()
+    args['ingredients_list'] = r.get_ingredients_list()
     args['query'] = request.GET.get('query')
     args['checks'] = request.POST.getlist('checks')
 
@@ -49,15 +49,15 @@ def ingridients_list(request):
 
         return render(request, 'recipe/recipe_list.html', args)
 
-    return render(request, 'recipe/ingridients_list.html', args)
+    return render(request, 'recipe/ingredients_list.html', args)
 
 
-def ingridients_detail(request, name):
+def ingredients_detail(request, name):
     r = Request()
     args = {}
-    args['ingridient'] = r.get_inrg(name)
+    args['ingredient'] = r.get_inrg(name)
 
-    return render(request, 'recipe/ingridients_detail.html', args)
+    return render(request, 'recipe/ingredients_detail.html', args)
 
 
 class Request:
@@ -66,7 +66,7 @@ class Request:
     def __init__(self):
         self.root = SITE_ROOT
 
-    def get_ingridients_list(self):
+    def get_ingredients_list(self):
         # Список продуктов
         request = '/ingredients'
         url = self.root + request
@@ -98,7 +98,7 @@ class Request:
         return response.json()[0]
 
     def get_ingr_name_from_id(self, id):
-        return self.get_ingridients_list()[id].get('ingredient')
+        return self.get_ingredients_list()[id].get('ingredient')
 
 
     def get_recipe_with_check(self, checks):

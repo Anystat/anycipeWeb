@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'recipe:ingredients_list' %}">К ингредиентам</a>
+{{ ingredient }}
+{% endblock content %}
