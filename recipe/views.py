@@ -98,13 +98,14 @@ class Request:
         return response.json()[0]
 
     def get_ingr_name_from_id(self, id):
-        return self.get_ingredients_list()[id].get('ingredient')
+        return self.get_ingredients_list()[id].get('name')
 
 
     def get_recipe_with_check(self, checks):
         ingr = ''
         for i in range(len(checks)):
             ingr = ingr + self.get_ingr_name_from_id(int(checks[i])-1) + ','
+        print(ingr)
         request = '/receipts/find?ingredient[]=' + ingr[:-1]
         print(request)
         url = self.root + request
