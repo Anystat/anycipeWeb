@@ -7,12 +7,13 @@ sudo pip3 install --upgrade pip
 
 ```
 Bootstrap 3.3.7
+Python 3.5
 
 # WebApp Python-Django #
 
 ## What is this repository for?  ##
 
-WebApp app for Anystat Users
+WebApp app for Anycipe Users
 
 ## How install and run for Linux ##
 
