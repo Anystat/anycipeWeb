@@ -12,12 +12,11 @@
                        placeholder="Введите ингредиенты...">
             </div><!-- /input-group -->
         </form>
-    </div>
 
-    <div class="row">
         {% for recipe in recipe_list %}
             <div class="col-md-1 col-md-offset-1">
-                <h3><img src="{% static "recipe/img/zaglushka.jpg" %}" class="img-thumbnail" alt="{{ recipe.receipt }}"></h3>
+                <h3><img src="{% static "recipe/img/zaglushka.jpg" %}"
+                         class="img-thumbnail" alt="{{ recipe.receipt }}"></h3>
             </div>
             <div class="col-md-9">
                 <h3><a href="{% url 'recipe:recipe_detail' recipe.receipt %}">{{ recipe.receipt }}</a></h3>
